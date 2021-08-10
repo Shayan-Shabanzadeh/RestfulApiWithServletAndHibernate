@@ -9,14 +9,6 @@
 </servlet>
     <servlet-mapping>
         <servlet-name>a</servlet-name>
-        <url-pattern>/user</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>b</servlet-name>
-        <servlet-class>com.example.usermanagment.web.testServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>b</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <url-pattern>/users/*</url-pattern>
     </servlet-mapping>
 </web-app>

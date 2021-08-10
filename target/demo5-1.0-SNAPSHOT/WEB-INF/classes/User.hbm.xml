@@ -12,5 +12,9 @@
         <property name="name" column="name" type="string"/>
         <property name="email" column="email" type="string"/>
         <property name="country" column="country" type="string"/>
+        <bag name="addresses" cascade="all" lazy="false">
+            <key column="user_id"/>
+            <one-to-many class="com.example.usermanagment.bean.Address"/>
+        </bag>
     </class>
 </hibernate-mapping>

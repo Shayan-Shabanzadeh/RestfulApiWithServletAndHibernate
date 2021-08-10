@@ -1,21 +1,35 @@
 package com.example.usermanagment.bean;
 
+import java.util.List;
 
 public class User {
         private int id;
         private String name;
         private String email;
         private String country;
+        private List<Address> addresses;
 
-        public User(int id, String name, String email, String country) {
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+
+    public User(int id, String name, String email, String country , List<Address> addresses) {
             this.id = id;
             this.name = name;
             this.email = email;
             this.country = country;
+            this.addresses = addresses;
         }
 
 
-        public User() {}
+        public User() {
+        }
+
 
     public int getId() {
             return id;
@@ -57,6 +71,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
+                ", addresses=" + addresses +
                 '}';
     }
 }
