@@ -57,7 +57,7 @@ public class UserServlet extends HttpServlet {
         User newUser = Json.parseStringToJson(requestBody);
         ArrayList<Address> addresses = new ArrayList<>(newUser.getAddresses());
         Long userId = oneToManyDAO.saveUserWithOutAddress(newUser);
-        oneToManyDAO.saveUserAddress(userId ,addresses);
+//        oneToManyDAO.saveUserAddress(userId ,addresses);
         String userInJsonFormat = Json.parseUserToJsonString(newUser);
         sendResponseInJsonFormat(resp , userInJsonFormat);
     }

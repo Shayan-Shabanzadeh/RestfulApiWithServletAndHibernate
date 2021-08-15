@@ -25,12 +25,17 @@ public class OneToManyDAOImpl implements OneToManyDAO {
     @Override
     public Long saveUserWithOutAddress(User user) {
         Long result = null;
-        user.getAddresses().clear();
+//        ArrayList<Address> addresses =new ArrayList<> (user.getAddresses());
+//        user.getAddresses().clear();
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
             result = (Long) session.save(user);
+//            for(Address ad : addresses){
+//                ad.setUserId(result);
+//                session.save(ad);
+//            }
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -51,7 +56,7 @@ public class OneToManyDAOImpl implements OneToManyDAO {
                 tx = session.beginTransaction();
                 for(Address address : addresses){
                     user.getAddresses().add(address);
-                    address.setUserId(userId);
+//                    address.setUserId(userId);
                     session.save(address);
                 }
                 tx.commit();

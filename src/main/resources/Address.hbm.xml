@@ -8,6 +8,6 @@
             <generator class="native"/>
         </id>
         <property name="address" column="UserAddress" type="string"/>
-        <property name="userId" column="user_id"/>
+        <many-to-one name="user" column="user_id" class="com.example.usermanagment.bean.User"/>
     </class>
 </hibernate-mapping>
