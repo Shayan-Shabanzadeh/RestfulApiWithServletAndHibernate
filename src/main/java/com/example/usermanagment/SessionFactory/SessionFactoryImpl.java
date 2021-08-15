@@ -9,6 +9,7 @@ public class SessionFactoryImpl implements SessionFactory{
           return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         }catch(Throwable t){
             System.err.println("Failed to creat sessionFactory object." + t);
-            throw new ExceptionInInitializerError(t);        }
+            throw new ExceptionInInitializerError(t);
+        }
     }
 }

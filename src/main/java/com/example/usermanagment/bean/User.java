@@ -3,7 +3,7 @@ package com.example.usermanagment.bean;
 import java.util.List;
 
 public class User {
-        private int id;
+        private Long id;
         private String name;
         private String email;
         private String country;
@@ -18,7 +18,7 @@ public class User {
     }
 
 
-    public User(int id, String name, String email, String country , List<Address> addresses) {
+    public User(Long id, String name, String email, String country , List<Address> addresses) {
             this.id = id;
             this.name = name;
             this.email = email;
@@ -31,15 +31,15 @@ public class User {
         }
 
 
-    public int getId() {
-            return id;
-        }
+    public Long getId() {
+        return id;
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public String getName() {
+    public String getName() {
             return name;
         }
 

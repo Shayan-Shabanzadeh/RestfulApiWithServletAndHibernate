@@ -4,9 +4,10 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.example.usermanagment.bean.Address" table="address">
-        <id name="id">
-            <generator class="increment"/>
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="native"/>
         </id>
         <property name="address" column="UserAddress" type="string"/>
+        <property name="userId" column="user_id"/>
     </class>
 </hibernate-mapping>

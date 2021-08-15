@@ -1,5 +1,6 @@
 package com.example.usermanagment.web;
 
+import com.example.usermanagment.bean.Address;
 import com.example.usermanagment.bean.User;
 import com.example.usermanagment.dao.Json;
 import com.example.usermanagment.dao.OneToManyDAO;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 import java.util.stream.Collectors;
 
 public class UserServlet extends HttpServlet {
@@ -54,7 +55,9 @@ public class UserServlet extends HttpServlet {
     private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String requestBody = getRequestBody(req);
         User newUser = Json.parseStringToJson(requestBody);
-        oneToManyDAO.saveUser(newUser);
+        ArrayList<Address> addresses = new ArrayList<>(newUser.getAddresses());
+        Long userId = oneToManyDAO.saveUserWithOutAddress(newUser);
+        oneToManyDAO.saveUserAddress(userId ,addresses);
         String userInJsonFormat = Json.parseUserToJsonString(newUser);
         sendResponseInJsonFormat(resp , userInJsonFormat);
     }
