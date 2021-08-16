@@ -1,10 +1,7 @@
-import com.example.usermanagment.bean.Address;
 import com.example.usermanagment.bean.User;
 import com.example.usermanagment.dao.Json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class main {
     public static void main(String[] args) {

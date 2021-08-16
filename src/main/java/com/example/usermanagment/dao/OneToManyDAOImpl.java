@@ -1,18 +1,15 @@
 package com.example.usermanagment.dao;
 
 import com.example.usermanagment.SessionFactory.SessionFactoryCreator;
-import com.example.usermanagment.bean.Address;
 import com.example.usermanagment.bean.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OneToManyDAOImpl implements OneToManyDAO{
+public class OneToManyDAOImpl implements OneToManyDAO {
 
     SessionFactory factory;
 
@@ -21,23 +18,26 @@ public class OneToManyDAOImpl implements OneToManyDAO{
     }
 
     @Override
-    public void saveUser(User user) {
+    public Long saveUser(User user) {
+        Long result = null;
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(user);
+            result = (Long) session.save(user);
             tx.commit();
         } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
+            if (tx != null) tx.rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
+        return result;
     }
 
+
     @Override
-    public void deleteUser(int userId) {
+    public void deleteUser(Long userId) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
@@ -46,7 +46,7 @@ public class OneToManyDAOImpl implements OneToManyDAO{
             session.delete(user);
             tx.commit();
         } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
+            if (tx != null) tx.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -62,7 +62,7 @@ public class OneToManyDAOImpl implements OneToManyDAO{
             session.update(user);
             tx.commit();
         } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
+            if (tx != null) tx.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -77,13 +77,13 @@ public class OneToManyDAOImpl implements OneToManyDAO{
         try {
             tx = session.beginTransaction();
             List list = session.createQuery("FROM User").list();
-            for(Object o : list){
-                User user = (User) o ;
+            for (Object o : list) {
+                User user = (User) o;
                 users.add(user);
             }
             tx.commit();
         } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
+            if (tx != null) tx.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -92,20 +92,23 @@ public class OneToManyDAOImpl implements OneToManyDAO{
     }
 
     @Override
-    public User selectUser(int id) {
+    public User selectUser(Long id) {
         Session session = factory.openSession();
         Transaction tx = null;
-        User user= null;
+        User user = null;
         try {
             tx = session.beginTransaction();
             user = session.get(User.class, id);
             tx.commit();
         } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
+            if (tx != null) tx.rollback();
             e.printStackTrace();
         } finally {
             session.close();
         }
         return user;
     }
+
 }
+
+

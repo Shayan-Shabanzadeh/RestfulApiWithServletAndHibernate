@@ -6,14 +6,14 @@
 <hibernate-mapping>
     <class name="com.example.usermanagment.bean.User" table="user">
         <meta attribute="class-description">This class contains user detail</meta>
-        <id name="id" type="int" column="id">
+        <id name="id" type="java.lang.Long" column="user_id">
             <generator class="native"/>
         </id>
         <property name="name" column="name" type="string"/>
         <property name="email" column="email" type="string"/>
         <property name="country" column="country" type="string"/>
-        <bag name="addresses" cascade="all" lazy="false">
-            <key column="user_id"/>
+        <bag name="addresses" cascade="all"  lazy="false">
+            <key column="user_id" not-null="true"/>
             <one-to-many class="com.example.usermanagment.bean.Address"/>
         </bag>
     </class>

@@ -1,24 +1,32 @@
 package com.example.usermanagment.bean;
 
 public class Address {
-    private int id;
+    private Long id;
     private String address;
+    private User user;
 
 
     public Address() {}
 
-    public Address(int id, String address) {
+    public Address(Long id, String address, User user) {
         this.id = id;
         this.address = address;
-
+        this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
 
-    public int getId() {
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -29,6 +37,7 @@ public class Address {
     public void setAddress(String address) {
         this.address = address;
     }
+
 
     @Override
     public String toString() {
