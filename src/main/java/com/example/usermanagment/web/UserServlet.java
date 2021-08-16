@@ -24,7 +24,7 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            allUsers(req, resp);
+        allUsers(req, resp);
     }
 
     @Override
@@ -56,8 +56,7 @@ public class UserServlet extends HttpServlet {
         String requestBody = getRequestBody(req);
         User newUser = Json.parseStringToJson(requestBody);
         ArrayList<Address> addresses = new ArrayList<>(newUser.getAddresses());
-        Long userId = oneToManyDAO.saveUserWithOutAddress(newUser);
-//        oneToManyDAO.saveUserAddress(userId ,addresses);
+        oneToManyDAO.saveUser(newUser);
         String userInJsonFormat = Json.parseUserToJsonString(newUser);
         sendResponseInJsonFormat(resp , userInJsonFormat);
     }

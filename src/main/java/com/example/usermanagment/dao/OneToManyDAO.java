@@ -6,9 +6,7 @@ import com.example.usermanagment.bean.User;
 import java.util.List;
 
 public interface OneToManyDAO {
-    Long saveUserWithOutAddress(User user);
-
-    void saveUserAddress(Long userId , List<Address> addresses);
+    Long saveUser(User user);
 
     void deleteUser(Long userId);
 

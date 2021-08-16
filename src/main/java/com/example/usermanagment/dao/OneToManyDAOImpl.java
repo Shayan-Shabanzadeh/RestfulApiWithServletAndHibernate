@@ -1,17 +1,12 @@
 package com.example.usermanagment.dao;
 
 import com.example.usermanagment.SessionFactory.SessionFactoryCreator;
-import com.example.usermanagment.bean.Address;
 import com.example.usermanagment.bean.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class OneToManyDAOImpl implements OneToManyDAO {
@@ -23,19 +18,13 @@ public class OneToManyDAOImpl implements OneToManyDAO {
     }
 
     @Override
-    public Long saveUserWithOutAddress(User user) {
+    public Long saveUser(User user) {
         Long result = null;
-//        ArrayList<Address> addresses =new ArrayList<> (user.getAddresses());
-//        user.getAddresses().clear();
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
             result = (Long) session.save(user);
-//            for(Address ad : addresses){
-//                ad.setUserId(result);
-//                session.save(ad);
-//            }
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -46,28 +35,6 @@ public class OneToManyDAOImpl implements OneToManyDAO {
         return result;
     }
 
-    @Override
-    public void saveUserAddress(Long userId, List<Address> addresses) {
-        User user = selectUser(userId);
-        if(user != null){
-            Session session = factory.openSession();
-            Transaction tx = null;
-            try{
-                tx = session.beginTransaction();
-                for(Address address : addresses){
-                    user.getAddresses().add(address);
-//                    address.setUserId(userId);
-                    session.save(address);
-                }
-                tx.commit();
-            } catch (HibernateException e) {
-                if (tx != null) tx.rollback();
-                e.printStackTrace();
-            } finally {
-                session.close();
-            }
-        }
-    }
 
     @Override
     public void deleteUser(Long userId) {
