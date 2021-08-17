@@ -12,13 +12,13 @@
         <property name="name" column="name" type="string"/>
         <property name="email" column="email" type="string"/>
         <property name="country" column="country" type="string"/>
-        <set name="rolls" cascade="all"  lazy="false" table="roll_user" inverse="true">
+        <set name="rolls" cascade="all"  lazy="false" table="roll_user" inverse="false">
             <key column="user_id" not-null="true"/>
-            <many-to-many class="com.example.usermanagment.bean.Roll" column="roll_id"/>
+            <many-to-many class="com.example.usermanagment.bean.Roll" column="roll_id" />
         </set>
-<!--        <bag name="addresses" cascade="all"  lazy="false">-->
-<!--            <key column="user_id" not-null="true"/>-->
-<!--            <one-to-many class="com.example.usermanagment.bean.Address"/>-->
-<!--        </bag>-->
+        <bag name="addresses" cascade="all"  lazy="false" table="address">
+            <key column="user_id" not-null="true"/>
+            <one-to-many class="com.example.usermanagment.bean.Address"/>
+        </bag>
     </class>
 </hibernate-mapping>

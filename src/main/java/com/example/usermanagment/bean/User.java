@@ -11,25 +11,16 @@ public class User extends Entity{
         private String name;
         private String email;
         private String country;
-//        private List<Address> addresses;
+        private List<Address> addresses;
         private Set<Roll> rolls;
 
 
-//    public User(Long id, String name, String email, String country, List<Address> addresses, Set<Roll> rolls) {
-//        this.id = id;
-//        this.name = name;
-//        this.email = email;
-//        this.country = country;
-//        this.addresses = addresses;
-//        this.rolls = rolls;
-//    }
-
-
-    public User(Long id, String name, String email, String country, Set<Roll> rolls) {
+    public User(Long id, String name, String email, String country, List<Address> addresses, Set<Roll> rolls) {
         super(id);
         this.name = name;
         this.email = email;
         this.country = country;
+        this.addresses = addresses;
         this.rolls = rolls;
     }
 
@@ -43,13 +34,13 @@ public class User extends Entity{
     public void setId(Long id) {
         this.id = id;
     }
-//    public List<Address> getAddresses() {
-//        return addresses;
-//    }
-//
-//    public void setAddresses(List<Address> addresses) {
-//        this.addresses = addresses;
-//    }
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
     public String getName() {
             return name;
@@ -84,7 +75,6 @@ public class User extends Entity{
     }
 
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -92,6 +82,7 @@ public class User extends Entity{
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
+                ", addresses=" + addresses +
                 ", rolls=" + rolls +
                 '}';
     }
