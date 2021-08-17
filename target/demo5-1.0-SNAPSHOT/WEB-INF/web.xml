@@ -4,11 +4,19 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 <servlet>
-    <servlet-name>a</servlet-name>
+    <servlet-name>userServlet</servlet-name>
     <servlet-class>com.example.usermanagment.web.UserServlet</servlet-class>
 </servlet>
     <servlet-mapping>
-        <servlet-name>a</servlet-name>
+        <servlet-name>userServlet</servlet-name>
         <url-pattern>/users/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>rollServlet</servlet-name>
+        <servlet-class>com.example.usermanagment.web.RollServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>rollServlet</servlet-name>
+        <url-pattern>/rolls/*</url-pattern>
     </servlet-mapping>
 </web-app>

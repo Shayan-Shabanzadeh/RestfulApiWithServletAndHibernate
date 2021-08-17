@@ -1,20 +1,19 @@
 package com.example.usermanagment.dao;
 
-import com.example.usermanagment.bean.Address;
-import com.example.usermanagment.bean.User;
+import com.example.usermanagment.bean.Entity;
 
 import java.util.List;
 
 public interface OneToManyDAO {
-    Long saveUser(User user);
+    Long save(Entity entity);
 
-    void deleteUser(Long userId);
+    void delete(Long entityId);
 
-    void updateUser(User user);
+    void update(Entity entity);
 
-    List<User> selectAllUsers();
+    List<Entity> selectAll();
 
-    User selectUser(Long id);
+    Entity select(Long id);
 
 
 }

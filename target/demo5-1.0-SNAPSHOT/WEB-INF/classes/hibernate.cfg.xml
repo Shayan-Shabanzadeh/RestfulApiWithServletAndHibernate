@@ -17,6 +17,7 @@
         <property name="hbm2ddl.auto">update</property>
         <!-- mapping class="com.mcnz.jpa.examples.Player" / -->
         <mapping resource="User.hbm.xml"/>
-        <mapping resource="Address.hbm.xml"/>
+<!--        <mapping resource="Address.hbm.xml"/>-->
+        <mapping resource="Roll.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

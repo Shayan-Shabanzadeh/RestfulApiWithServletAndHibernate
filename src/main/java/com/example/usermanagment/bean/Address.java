@@ -1,17 +1,29 @@
 package com.example.usermanagment.bean;
 
+import java.util.Set;
+
 public class Address {
     private Long id;
     private String address;
     private User user;
+    private Set<Roll> rolls;
 
 
     public Address() {}
 
-    public Address(Long id, String address, User user) {
+    public Address(Long id, String address, User user, Set<Roll> rolls) {
         this.id = id;
         this.address = address;
         this.user = user;
+        this.rolls = rolls;
+    }
+
+    public Set<Roll> getRolls() {
+        return rolls;
+    }
+
+    public void setRolls(Set<Roll> rolls) {
+        this.rolls = rolls;
     }
 
     public User getUser() {

@@ -1,35 +1,40 @@
 package com.example.usermanagment.bean;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-public class User {
-        private Long id;
+import java.util.List;
+import java.util.Set;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class User extends Entity{
         private String name;
         private String email;
         private String country;
-        private List<Address> addresses;
+//        private List<Address> addresses;
+        private Set<Roll> rolls;
 
-    public List<Address> getAddresses() {
-        return addresses;
+
+//    public User(Long id, String name, String email, String country, List<Address> addresses, Set<Roll> rolls) {
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.country = country;
+//        this.addresses = addresses;
+//        this.rolls = rolls;
+//    }
+
+
+    public User(Long id, String name, String email, String country, Set<Roll> rolls) {
+        super(id);
+        this.name = name;
+        this.email = email;
+        this.country = country;
+        this.rolls = rolls;
     }
 
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+    public User() {
     }
-
-
-    public User(Long id, String name, String email, String country , List<Address> addresses) {
-            this.id = id;
-            this.name = name;
-            this.email = email;
-            this.country = country;
-            this.addresses = addresses;
-        }
-
-
-        public User() {
-        }
-
 
     public Long getId() {
         return id;
@@ -38,6 +43,13 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+//    public List<Address> getAddresses() {
+//        return addresses;
+//    }
+//
+//    public void setAddresses(List<Address> addresses) {
+//        this.addresses = addresses;
+//    }
 
     public String getName() {
             return name;
@@ -63,6 +75,15 @@ public class User {
             this.country = country;
         }
 
+    public Set<Roll> getRolls() {
+        return rolls;
+    }
+
+    public void setRolls(Set<Roll> rolls) {
+        this.rolls = rolls;
+    }
+
+
 
     @Override
     public String toString() {
@@ -71,7 +92,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
-                ", addresses=" + addresses +
+                ", rolls=" + rolls +
                 '}';
     }
 }

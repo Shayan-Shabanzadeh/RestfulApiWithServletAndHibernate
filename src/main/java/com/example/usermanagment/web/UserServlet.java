@@ -1,10 +1,11 @@
 package com.example.usermanagment.web;
 
-import com.example.usermanagment.bean.Address;
 import com.example.usermanagment.bean.User;
+import com.example.usermanagment.bean.Entity;
 import com.example.usermanagment.dao.Json;
 import com.example.usermanagment.dao.OneToManyDAO;
 import com.example.usermanagment.dao.OneToManyDAOFactory;
+
 
 
 import javax.servlet.ServletException;
@@ -14,10 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import java.util.stream.Collectors;
+
+import static com.example.usermanagment.dao.Json.getRequestBody;
+import static com.example.usermanagment.dao.Json.sendResponseInJsonFormat;
 
 public class UserServlet extends HttpServlet {
     private OneToManyDAO oneToManyDAO;
@@ -49,21 +51,20 @@ public class UserServlet extends HttpServlet {
 
     @Override
     public void init(){
-        oneToManyDAO = OneToManyDAOFactory.getInstance();
+        oneToManyDAO = OneToManyDAOFactory.getInstanceForUserDAO();
     }
 
     private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String requestBody = getRequestBody(req);
         User newUser = Json.parseStringToJson(requestBody);
-        ArrayList<Address> addresses = new ArrayList<>(newUser.getAddresses());
-        oneToManyDAO.saveUser(newUser);
+        oneToManyDAO.save(newUser);
         String userInJsonFormat = Json.parseUserToJsonString(newUser);
         sendResponseInJsonFormat(resp , userInJsonFormat);
     }
     private void deleteUser(HttpServletRequest req , HttpServletResponse resp) throws IOException, SQLException {
         String requestBody = getRequestBody(req);
         User user = Json.parseStringToJson(requestBody);
-        oneToManyDAO.deleteUser(user.getId());
+        oneToManyDAO.delete(user.getId());
         String userInJsonFormat = Json.parseUserToJsonString(user);
         sendResponseInJsonFormat(resp , userInJsonFormat);
     }
@@ -71,28 +72,19 @@ public class UserServlet extends HttpServlet {
     private void updateUser(HttpServletRequest req , HttpServletResponse resp) throws IOException {
         String requestBody = getRequestBody(req);
         User user = Json.parseStringToJson(requestBody);
-        oneToManyDAO.updateUser(user);
+        oneToManyDAO.update(user);
         String userInJsonFormat = Json.parseUserToJsonString(user);
         sendResponseInJsonFormat(resp , userInJsonFormat);
     }
 
     private void allUsers(HttpServletRequest req , HttpServletResponse resp) throws IOException {
-        List<User> users = oneToManyDAO.selectAllUsers();
+        List<Entity> users = oneToManyDAO.selectAll();
         StringBuilder sb= new StringBuilder();
-        for(User user : users){
+        for(Entity user : users){
             sb.append(user).append("\n");
         }
         sendResponseInJsonFormat(resp , sb.toString());
     }
 
-    private String getRequestBody(HttpServletRequest req) throws IOException {
-        return req.getReader().lines().collect(Collectors.joining());
-    }
-    private void sendResponseInJsonFormat(HttpServletResponse resp , String json) throws IOException {
-        PrintWriter writer = resp.getWriter();
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        writer.println(json);
-        writer.close();
-    }
+
 }
