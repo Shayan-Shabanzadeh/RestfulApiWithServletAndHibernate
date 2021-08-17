@@ -1,30 +1,32 @@
 package com.example.usermanagment.dao;
 
 import com.example.usermanagment.SessionFactory.SessionFactoryCreator;
-import com.example.usermanagment.bean.User;
+import com.example.usermanagment.bean.Entity;
+import com.example.usermanagment.bean.Roll;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class OneToManyDAOImpl implements OneToManyDAO {
+public class OneToManyDAOImplForRoll implements OneToManyDAO{
 
     SessionFactory factory;
 
-    public OneToManyDAOImpl() {
+    public OneToManyDAOImplForRoll() {
         this.factory = SessionFactoryCreator.getInstance().createSessionFactory();
     }
 
     @Override
-    public Long saveUser(User user) {
+    public Long save(Entity roll) {
         Long result = null;
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            result = (Long) session.save(user);
+            result = (Long) session.save(roll);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -35,15 +37,14 @@ public class OneToManyDAOImpl implements OneToManyDAO {
         return result;
     }
 
-
     @Override
-    public void deleteUser(Long userId) {
+    public void delete(Long entityId) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            User user = session.get(User.class, userId);
-            session.delete(user);
+            Roll roll = session.get(Roll.class, entityId);
+            session.delete(roll);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -54,12 +55,12 @@ public class OneToManyDAOImpl implements OneToManyDAO {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(Entity entity) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.update(user);
+            session.update(entity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -70,16 +71,16 @@ public class OneToManyDAOImpl implements OneToManyDAO {
     }
 
     @Override
-    public List<User> selectAllUsers() {
+    public List<Entity> selectAll() {
         Session session = factory.openSession();
         Transaction tx = null;
-        List<User> users = new ArrayList<>();
+        List<Entity> rolls = new ArrayList<>();
         try {
             tx = session.beginTransaction();
-            List list = session.createQuery("FROM User").list();
+            List list = session.createQuery("FROM Roll").list();
             for (Object o : list) {
-                User user = (User) o;
-                users.add(user);
+                Roll roll = (Roll) o;
+                rolls.add(roll);
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -88,17 +89,17 @@ public class OneToManyDAOImpl implements OneToManyDAO {
         } finally {
             session.close();
         }
-        return users;
+        return rolls;
     }
 
     @Override
-    public User selectUser(Long id) {
+    public Roll select(Long id) {
         Session session = factory.openSession();
         Transaction tx = null;
-        User user = null;
+        Roll roll = null;
         try {
             tx = session.beginTransaction();
-            user = session.get(User.class, id);
+            roll = session.get(Roll.class, id);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -106,9 +107,6 @@ public class OneToManyDAOImpl implements OneToManyDAO {
         } finally {
             session.close();
         }
-        return user;
+        return roll;
     }
-
 }
-
-

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.example.usermanagment.bean.Roll" table="roll">
+        <meta attribute="class-description">This class contains roll detail</meta>
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="rollName" column="name" type="string"/>
+        <set name="users" cascade="all"  lazy="false" table="roll_user" inverse="false">
+            <key column="roll_id" not-null="true"/>
+            <many-to-many class="com.example.usermanagment.bean.User" column="user_id"/>
+        </set>
+    </class>
+</hibernate-mapping>
